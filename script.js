@@ -35,12 +35,14 @@ function operate (a,b,operator) {
 }
 
 
-// display on screen
+// display on screen section
+//
 
 const divLeftNumber = document.querySelector('.display .left')
 const divRightNumber = document.querySelector('.display .right')
 const divOnScreenOperator = document.querySelector('.display .operator')
 
+// parseInt('') = NaN
 let leftNumber = parseInt(divLeftNumber.textContent)
 let rightNumber = parseInt(divRightNumber.textContent)
 let onScreenOperator = divOnScreenOperator.textContent
@@ -56,5 +58,20 @@ const operatorButtons = {
     '*': document.querySelector('.buttons .operator.mul'),
     '-': document.querySelector('.buttons .operator.sub'),
     '+': document.querySelector('.buttons .operator.add')
+}
+
+function updateDisplay() {
+    if (leftNumber === NaN) 
+        divLeftNumber.textContent = ''
+    divLeftNumber.textContent= leftNumber
+    divRightNumber.textContent = rightNumber
+    divOnScreenOperator.textContent = onScreenOperator
+}
+
+function clear() {
+    leftNumber = NaN
+    rightNumber = 0
+    onScreenOperator = ''
+    updateDisplay()
 }
 
