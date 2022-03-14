@@ -33,3 +33,28 @@ function operate (a,b,operator) {
             break
     }
 }
+
+
+// display on screen
+
+const divLeftNumber = document.querySelector('.display .left')
+const divRightNumber = document.querySelector('.display .right')
+const divOnScreenOperator = document.querySelector('.display .operator')
+
+let leftNumber = parseInt(divLeftNumber.textContent)
+let rightNumber = parseInt(divRightNumber.textContent)
+let onScreenOperator = divOnScreenOperator.textContent
+
+// I could do a SelectorAll .number and then perhaps sort
+const numberButtons = []
+for(let i=0; i<10; i++) {
+    numberButtons[i] = document.querySelector(`.number.${i}`)
+}
+
+const operatorButtons = {
+    '/': document.querySelector('.buttons .operator.div'),
+    '*': document.querySelector('.buttons .operator.mul'),
+    '-': document.querySelector('.buttons .operator.sub'),
+    '+': document.querySelector('.buttons .operator.add')
+}
+
