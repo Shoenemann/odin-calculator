@@ -120,8 +120,10 @@ function updateDisplay() {
     if (!Number.isNaN(leftNumber)) {
         if (leftNumber <999999999 && leftNumber > -999999999)
             leftDisplay = leftNumber.toPrecision(9)
-        else 
+        else if (leftNumber < 0)
             leftDisplay = leftNumber.toPrecision(5)
+        else 
+            leftDisplay = leftDisplay.toPrecision(6)
     }
     divLeftNumber.textContent = leftDisplay
     divRightNumber.textContent = rightNumber
