@@ -95,8 +95,11 @@ function statusDisplay () {
     else if(typeof a === 'number' && op !== '' && typeof b === 'number') {
         return 'complete'
     } 
-    else if(b !== '' && typeof b === 'string') {
-        return 'message'
+    else if(a === NaN && b !== '' && typeof b === 'string') {
+        return 'message-begin'
+    } 
+    else if(typeof a === 'number' && b !== '' && typeof b === 'string') {
+        return 'message-incomplete'
     } 
     else {
         return 'STATUS_ERROR'
@@ -108,7 +111,8 @@ function operateDisplay () {
         case 'empty':
         case 'result':
         case 'incomplete':
-        case 'message':
+        case 'message-begin':
+        case 'message-incomplete':
             break
         case 'begin':
             leftNumber = rightNumber
@@ -132,17 +136,29 @@ function operateDisplay () {
 }
 
 function pressOperator (operator) {
-
-    if (leftNumber === NaN) return
-
-    else if(rightNumber === '') {
-        onScreenOperator = operator
-        updateDisplay()
+    switch(statusDisplay()) {
+        case 'empty':
+        case 'message-begin':
+            break
+        case 'result':
+        case 'incomplete':
+            onScreenOperator = operator
+            break
+        case 'message-incomplete':
+            onScreenOperator = operator
+            rightNumber = ''
+            break
+        case 'begin':
+            leftNumber = rightNumber
+            onScreenOperator = operator
+            rightNumber = ''
+            break
+        case 'complete':
+            operateDisplay() 
+            onScreenOperator = operator
+            break
     }
-
-    else  {
-        operateDisplay()
-    }
+    updateDisplay()
 }
 
 function pressDigit(digit) {
