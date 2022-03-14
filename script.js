@@ -63,7 +63,8 @@ const operatorButtons = {
 function updateDisplay() {
     if (leftNumber === NaN) 
         divLeftNumber.textContent = ''
-    divLeftNumber.textContent= leftNumber
+    else 
+        divLeftNumber.textContent= leftNumber
     divRightNumber.textContent = rightNumber
     divOnScreenOperator.textContent = onScreenOperator
 }
@@ -73,5 +74,25 @@ function clear() {
     rightNumber = 0
     onScreenOperator = ''
     updateDisplay()
+}
+
+function operateDisplay () {
+    if (leftNumber === NaN) return 
+    if (onScreenOperator === '') return
+    if (typeof rightNumber !== 'number') return
+    
+    const result = operate (onScreenOperator,leftNumber,rightNumber)
+    if (result === "ERRORDIVIDE0") {
+        leftNumber = NaN
+        onScreenOperator = ''
+        rightNumber = 'oh no....!'
+        updateDisplay()
+    }
+    else {
+        leftNumber = result
+        onScreenOperator = ''
+        rightNumber = ''
+        updateDisplay()
+    }    
 }
 
