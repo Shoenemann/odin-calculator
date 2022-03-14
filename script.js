@@ -1,4 +1,4 @@
-// basic math operators
+/* basic math operations */
 
 function add (a,b) {
     return a+b
@@ -35,8 +35,7 @@ function operate (a,b,operator) {
 }
 
 
-// display on screen section
-//
+/* Interaction with html */
 
 const divLeftNumber = document.querySelector('.display .left')
 const divRightNumber = document.querySelector('.display .right')
@@ -59,6 +58,12 @@ const operatorButtons = {
     '-': document.querySelector('.buttons .operator.sub'),
     '+': document.querySelector('.buttons .operator.add')
 }
+
+
+/* event listeners */
+
+
+/* functions of buttons */
 
 function updateDisplay() {
     if (leftNumber === NaN) 
