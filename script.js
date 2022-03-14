@@ -162,5 +162,25 @@ function pressOperator (operator) {
 }
 
 function pressDigit(digit) {
+    digit = parseInt(digit)
+    switch (statusDisplay()) {
+        case 'result':   
+            leftNumber = NaN
+            rightNumber = digit
+            break
+        case 'empty':
+        case 'incomplete':
+        case 'message-begin':
+        case 'message-incomplete':
+            rightNumber = digit
+            break
+        case 'begin':
+        case 'complete':
+            rightNumber = addDigit(rightNumber,digit)
+    }
+    updateDisplay()
+}
 
+function addDigit(number,digit) {
+    return number*10 +digit
 }
