@@ -121,9 +121,9 @@ function updateDisplay() {
         if (leftNumber <999999999 && leftNumber > -999999999)
             leftDisplay = leftNumber.toPrecision(9)
         else if (leftNumber < 0)
-            leftDisplay = leftNumber.toPrecision(5)
+            leftDisplay = leftNumber.toPrecision(4)
         else 
-            leftDisplay = leftDisplay.toPrecision(6)
+            leftDisplay = leftNumber.toPrecision(5)
     }
     divLeftNumber.textContent = leftDisplay
     divRightNumber.textContent = rightNumber
