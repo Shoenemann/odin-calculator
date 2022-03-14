@@ -116,10 +116,14 @@ document.addEventListener('keydown',(e) => {
 /* functions of buttons */
 
 function updateDisplay() {
-    if (Number.isNaN(leftNumber)) 
-        divLeftNumber.textContent = ''
-    else 
-        divLeftNumber.textContent= leftNumber
+    let leftDisplay = ''
+    if (!Number.isNaN(leftNumber)) {
+        if (leftNumber <999999999 && leftNumber > -999999999)
+            leftDisplay = leftNumber.toPrecision(9)
+        else 
+            leftDisplay = leftNumber.toPrecision(5)
+    }
+    divLeftNumber.textContent = leftDisplay
     divRightNumber.textContent = rightNumber
     divOnScreenOperator.textContent = onScreenOperator
 }
