@@ -17,7 +17,7 @@ function divide (a,b) {
     return a/b
 }
 
-function operate (a,b,operator) {
+function operate (operator,a,b) {
     switch (operator) {
         case '+':
             return add(a,b)
@@ -49,24 +49,71 @@ let onScreenOperator = divOnScreenOperator.textContent
 // I could do a SelectorAll .number and then perhaps sort
 const numberButtons = []
 for(let i=0; i<10; i++) {
-    numberButtons[i] = document.querySelector(`.number.${i}`)
+    numberButtons[i] = document.querySelector(`.number.n${i}`)
 }
 
 const operatorButtons = {
     '/': document.querySelector('.buttons .operator.div'),
     '*': document.querySelector('.buttons .operator.mul'),
     '-': document.querySelector('.buttons .operator.sub'),
-    '+': document.querySelector('.buttons .operator.add')
+    '+': document.querySelector('.buttons .operator.add'),
+    'C': document.querySelector('.buttons .end.clear'),
+    '=': document.querySelector('.buttons .end.equal'),
 }
 
 
 /* event listeners */
 
+for (let i=0; i<10;i++) {
+    numberButtons[i].addEventListener('click',() => pressDigit(i))
+}
+
+operatorButtons['='].addEventListener('click',()=>operateDisplay())
+operatorButtons['C'].addEventListener('click',()=>clearDisplay())
+operatorButtons['/'].addEventListener('click',()=>pressOperator('/'))
+operatorButtons['*'].addEventListener('click',()=>pressOperator('*'))
+operatorButtons['-'].addEventListener('click',()=>pressOperator('-'))
+operatorButtons['+'].addEventListener('click',()=>pressOperator('+'))
+
+document.addEventListener('keydown',(e) => {
+    switch (e.key) {
+        case '=': 
+        case 'Enter':
+            operateDisplay()
+            break
+        case 'c':
+        case 'C':
+        case 'Delete':
+            clearDisplay()
+            break
+        case '/':
+        case '*':
+        case '-':
+        case '+':
+            pressOperator(e.key)
+            break
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                pressDigit(parseInt(e.key))
+            break
+    }
+})
+
+
+
 
 /* functions of buttons */
 
 function updateDisplay() {
-    if (leftNumber === NaN) 
+    if (Number.isNaN(leftNumber)) 
         divLeftNumber.textContent = ''
     else 
         divLeftNumber.textContent= leftNumber
@@ -74,7 +121,7 @@ function updateDisplay() {
     divOnScreenOperator.textContent = onScreenOperator
 }
 
-function clear() {
+function clearDisplay() {
     leftNumber = NaN
     rightNumber = 0
     onScreenOperator = ''
@@ -88,22 +135,22 @@ function statusDisplay () {
     if (a === NaN && op === '' && b === '') {
         return 'empty'
     } 
-    else if (a === NaN && op === '' && typeof b === 'number') {
+    else if (isNaN(a) && op === '' && typeof b === 'number') {
         return 'begin'
     } 
-    else if(typeof a === 'number' && op === '' && b === '') {
+    else if(!isNaN(a) && op === '' && b === '') {
         return 'result'
     } 
-    else if (typeof a === 'number' && op !== '' && b === '') {
+    else if (!isNaN(a) && op !== '' && b === '') {
         return 'incomplete'
     } 
-    else if(typeof a === 'number' && op !== '' && typeof b === 'number') {
+    else if(!isNaN(a) && op !== '' && typeof b === 'number') {
         return 'complete'
     } 
-    else if(a === NaN && b !== '' && typeof b === 'string') {
+    else if(!isNaN(a) && b !== '' && typeof b === 'string') {
         return 'message-begin'
     } 
-    else if(typeof a === 'number' && b !== '' && typeof b === 'string') {
+    else if(!isNaN(a) && b !== '' && typeof b === 'string') {
         return 'message-incomplete'
     } 
     else {
