@@ -86,6 +86,9 @@ document.addEventListener('keydown',(e) => {
         case 'Delete':
             clearDisplay()
             break
+        case 'Backspace':
+            clearRightDisplay()
+            break
         case '/':
         case '*':
         case '-':
@@ -128,6 +131,12 @@ function clearDisplay() {
     updateDisplay()
 }
 
+function clearRightDisplay() {
+    rightNumber = 0
+    updateDisplay()
+}
+
+
 function statusDisplay () {
     let a = leftNumber
     let b = rightNumber
@@ -147,7 +156,7 @@ function statusDisplay () {
     else if(!isNaN(a) && op !== '' && typeof b === 'number') {
         return 'complete'
     } 
-    else if(!isNaN(a) && b !== '' && typeof b === 'string') {
+    else if(isNaN(a) && b !== '' && typeof b === 'string') {
         return 'message-begin'
     } 
     else if(!isNaN(a) && b !== '' && typeof b === 'string') {
